@@ -1,0 +1,1 @@
+if nums[ans] == target: return ans
