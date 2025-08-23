@@ -1,0 +1,1 @@
+if nums[r] != nums[r+1]: return [left, right]
