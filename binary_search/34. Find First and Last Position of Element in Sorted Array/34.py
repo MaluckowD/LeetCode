@@ -1,22 +1,38 @@
 class Solution:
     def searchRange(self, nums, target):
-        if len(nums) == 0: return [-1, -1]
-        if len(nums) == 1 and nums[0] == target: return [0, 0] 
-        l = -1
-        r = len(nums)
-        r1 = -1
-        isLeft = -1
-        while (r - l >= 2):
-            m = (r + l) // 2
-            if nums[m] < target: l = m
-            else:
-                r1 = r
-                r = m
-        if r == len(nums): return [-1, -1]
-        if nums[r] != target: return [-1, -1]
-        if r == len(nums) - 1 and nums[r] == target: return [r, r]
-        if nums[r] == nums[r+1]: return [r, r + 1]
-        if nums[r]  != nums[r+1]: return [r, r]
+        def find_first():
+            left, right = 0, len(nums) - 1
+            first = -1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] >= target:
+                    if nums[mid] == target:
+                        first = mid
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return first
+        
+        def find_last():
+            left, right = 0, len(nums) - 1
+            last = -1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] <= target:
+                    if nums[mid] == target:
+                        last = mid
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return last
+        
+        if not nums:
+            return [-1, -1]
+        
+        first = find_first()
+        last = find_last()
+        
+        return [first, last]
         
 
 solution = Solution()
